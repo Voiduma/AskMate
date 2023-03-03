@@ -1,0 +1,16 @@
+{% extends 'home.html' %}
+{% block title %}<title>Edit comment</title>{% endblock %}
+{% block content %}
+<body>
+<h1 class="site-title">Edit comment</h1>
+<form class="add-form" method=post enctype=multipart/form-data>  
+    <label class="form-label" for="message">Message:</label>
+    <textarea class="text-input" id="message" name="message" required>{{ comment['message'] }}</textarea>
+    <div class="wraper">
+    <button class="button" type="submit"><p>Edit Question</p></button>
+</div>
+</form>
+<div>
+<button class="button"><a href="/question/{{ comment['question_id'] }}">Back</a></button></div>
+</body>
+{% endblock %}

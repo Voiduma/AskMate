@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+{% block title %}<title>Register new user</title>{% endblock %}
+{% block content %}
+<body >
+    <p class="site-title">Make a new account</p>
+<form class="add-form" method=post enctype=multipart/form-data>
+    <label class="form-label" for="username">Username:</label>
+    <input class="list-input"  id="username" type="text" name="username" minlength="5" required value="{{ users['username'] if users is defined }}" autofocus autocomplete="off"/>
+    <label class="form-label" for="password">Password:</label>
+    <input class="list-input" id="password" type="password" name="password" minlength="5" required value="{{ users['password'] if users is defined }}" autocomplete="off"/>
+    <div class="wraper">
+    <button class="button" type="submit"> <p>Register account</p></button>
+    </div>
+</form>
+<div><button class="button" ><a href="/">Back</a></button></div>
+</body>
+{% endblock %}

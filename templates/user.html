@@ -1,0 +1,92 @@
+{% extends 'home.html' %}
+{% block title %}<title>User Page</title>{% endblock %}
+{% block content %}
+
+<table class="questions">
+    <thead height="70">
+        <th class="wide">Id</th>
+        <th class="wide">Name</th>
+        <th class="wide">Info</th>
+        <th class="wide">Registration Date</th>
+        <th class="wide">Number of asked questions</th>
+        <th class="wide">Number of answers</th>
+        <th class="wide">Namber of comments</th>
+        <th class="wide">Reputation</th>
+    </thead>
+    <tbody>
+    
+        <tr>
+            <td class="wide">{{user['id']}}</td>
+            <td class="wide">{{user['username']}}</td>
+            <td class="wide">a</td>
+            <td class="wide">{{user['registration_date']}}</td>
+            <td class="wide">{{user['number_of_answered_questions']}}</td>
+            <td class="wide">{{user['number_of_answers']}}</td>
+            <td class="wide">{{user['number_of_comments']}}</td>
+            <td class="wide">{{user['reputation']}}</td>
+        </tr>
+        
+    </tbody>
+</table>
+<br>
+<br>
+
+
+
+<table class="questions">
+    <thead>
+        <th class="wide">Id</th>
+        <th class="wide">Question</th>
+        <th class="wide">Link</th>
+       
+    </thead>
+    <tbody>
+        {% for question in questions %}
+        <tr>
+            <td class="wide">{{loop.index}}</td>
+            <td class="wide">{{question['message']}}</td>
+            <td class="wide"><a class="title" href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table><br>
+<br>
+
+<table class="questions">
+    <thead>
+        <th class="wide">Id</th>
+        <th class="wide">Answer</th>
+        <th class="wide">Link</th>
+    </thead>
+    <tbody>
+        {% for answer in answers %}
+        <tr>
+            <td class="wide">{{loop.index}}</td>
+            <td class="wide">{{answer['message']}}</td>
+            <td class="wide"><a class="title" href="/question/{{ answer['question_id'] }}">Go to page -></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> <br>
+<br>
+
+
+<table class="questions">
+    <thead>
+        <th class="wide">Id</th>
+        <th class="wide">Comment</th>
+        <th class="wide">Link</th>
+    </thead>
+    <tbody>
+        {% for comment in comments %}
+        <tr>
+            <td class="wide">{{loop.index}}</td>
+            <td class="wide">{{comment['message']}}</td>
+            <td class="wide"><a class="title" href="/question/{{ comment['question_id'] }}">Go to page -></a></td>
+  
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

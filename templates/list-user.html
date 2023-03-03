@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+{% block title %}<title>List Users</title>{% endblock %}
+{% block content %}
+
+    <table class="questions">
+        <thead>
+            <th class="wide">Id</th>
+            <th class="wide">Name</th>
+            <th class="wide">Info</th>
+            <th class="wide">Registration Date</th>
+            <th class="wide">Number of asked questions</th>
+            <th class="wide">Number of answers</th>
+            <th class="wide">Namber of comments</th>
+            <th class="wide">Reputation</th>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td class="wide">{{user['id']}}</td>
+                    <td class="wide">{{user['username']}}</td>
+                    <td class="wide">a</td>
+                    <td class="wide">{{user['registration_date']}}</td>
+                    <td class="wide">{{user['number_of_answered_questions']}}</td>
+                    <td class="wide">{{user['number_of_answers']}}</td>
+                    <td class="wide">{{user['number_of_comments']}}</td>
+                    <td class="wide">{{user['reputation']}}</td>
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+{% endblock %}

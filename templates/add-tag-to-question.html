@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+{% block title %}<title>Add tag</title>{% endblock %}
+{% block content %}
+<body>
+    <h1 class="site-title">Add tag</h1>
+<form class="add-form" method=post enctype=multipart/form-data>
+    <label class="form-label" for="tag">Choose your tag from the list:</label>
+    <input class="list-input" list="tags" name="tag" id="tag">
+    <datalist id="tags">
+    {% for tag in tags %}
+    <option value='{{ tag["name"] }}'>{{ tag["name"] }}</option>
+    {% endfor %}
+    </datalist>
+    <div class="wraper">
+    <button class="button" type="submit"><p>Add new tag</p></button>
+</div>
+</form>
+<div class="button-bar-tag">
+<button class="button"><a href="/question/{{ question_id }}/new-tag/create">Create new tag</a></button>
+<button class="button"><a href="/question/{{ question_id }}">Back</a></button></div>
+</body>
+{% endblock %}

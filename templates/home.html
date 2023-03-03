@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% block title %}<title>Home</title>{% endblock %}
+        <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='style/style.css')}}"">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        </style>
+    </head>
+    <body >
+    <h1 > <p>A</p>sk <p>M</p>ate </h1>
+    <table class="nav">
+        <tr class="button-row">
+            <td ><a class="nav-button" href="/"><p>Home</p></a></td>
+            {% if session["username"]!=null %}
+            <td ><a class="nav-button" href="/list"><p>Asked questions</p></a></td>
+            <td ><a class="nav-button" href="/add-question"><p>Add question</p></a></td>
+            <td ><a class="nav-button" href="/random"><p>Random</p></a></td>
+            {% endif %}
+            <td ><a class="nav-button" href="/tags"><p>Tags</p></a></td>
+            {% if session['username']==null or session=={} %}
+            <td ><a class="nav-button" href="/login"><p>Login</p></a></td>
+            {% endif %}
+            {% if session["username"]!=null %}
+            <td ><a class="nav-button" href="/logout"><p>Logout</p></a></td>
+            {% endif %}
+            {% if session['username']==null or session=={} %}
+            <td ><a class="nav-button" href="/registration"><p>Registration</p></a></td>
+            {% endif %}
+            {% if session['username']!=null %}
+            <td ><a class="nav-button" href="/user/{{ session['user_id'] }}"><p>{{ session['username'] }}</p></a></td>
+            {% endif %}
+        </tr>
+        {% if session["username"]!=null %}
+            <tr class="search">
+                <td><form action="/search?q={{search_phrase}}">
+                <input class="search-box" type="text" placeholder="Search" name="q">
+                <input class="search-button" type="submit" value="Search">
+                </form></td>
+            </tr>
+        {% endif %}
+        {% if session["username"]==null %}
+            <tr>
+                <td class="nav-button"><p>Access denied</p></td>
+            </tr>
+        {% endif %}    
+    </table>
+    {% block content %}
+        
+            <table class="questions">
+                <thead>
+                    <tr>
+                        <th class="narrow">Id<a class="sort" href='/list?order_by=id&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=id&order_direction=desc'>↥</a></th>
+                        <th class="wide">Question Title<a class="sort" href='/list?order_by=title&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=title&order_direction=desc'>↥</a></th>
+                        <th class="wide">Question<a class="sort" href='/list?order_by=message&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=message&order_direction=desc'>↥</a></th>
+                        <th class="narrow">Votes<a class="sort" href='/list?order_by=vote_number&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=vote_number&order_direction=desc'>↥</a></th>
+                        <th class="narrow">Voting</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                        {% if session["username"]!=null %}
+                            <tr>
+                                <td class="narrow cell"><p>{{loop.index}}</p></td>
+                                <td class="wide cell"><a class="title" href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+                                <td class="wide cell message"><p>{{ question['message'] }}</p></td>
+                                <td class="narrow cell" ><p>{{ question['vote_number'] }}</p></td>
+                                <td class="narrow cell"><p class="vote-wrap"><button><a class="vote" href="/question/{{ question['id'] }}/vote-up">+</a></button><button><a class="vote" href="/question/{{ question['id'] }}/vote-down">-</a></button></p></td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="narrow cell"><p>{{loop.index}}</p></td>
+                                <td class="wide cell"><a class="title" href=#>{{ question['title'] }}</a></td>
+                                <td class="wide cell message"><p>{{ question['message'] }}</p></td>
+                                <td class="narrow cell" ><p>{{ question['vote_number'] }}</p></td>
+                                <td class="narrow cell"><p class="vote-wrap"><button><a class="vote" href=#>+</a></button><button><a class="vote" href=#>-</a></button></p></td>
+                            </tr>
+                        {% endif %}    
+                    {% endfor %}<br>
+                </tbody>
+            </table>
+        
+    {% endblock %}
+    </body>
+</html>

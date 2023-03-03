@@ -1,0 +1,18 @@
+{% extends 'home.html' %}
+{% block title %}<title>Edit Question</title>{% endblock %}
+{% block content %}
+<body>
+    <p class="site-title">Edit Question</p>
+<form class="add-form" method=post enctype=multipart/form-data>
+    <label class="form-label" for="title">Title:</label>
+    <input class="title-input" id="title" type="text" name="title" minlength="5" required value="{{ question['title']  }}"/>
+    <label class="form-label" for="message">Message:</label><br>
+    <textarea class="text-input" id="message" name="message" required>{{ question['message'] }}</textarea>
+    <div class="wraper">
+    <button class="button" type="submit"><p>Edit Question</p></button>
+</div>
+</form>
+<div>
+<button class="button"><a href="/list">Back</a></button></div>
+</body>
+{% endblock %}

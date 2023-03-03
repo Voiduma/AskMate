@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+{% block title %}<title>Add tag</title>{% endblock %}
+{% block content %}
+<body>
+<h1 >Add tag</h1>
+<form class="add-form" method=post enctype=multipart/form-data>
+    <label class="form-label" for="tag">New Tag:</label>
+    <input class="text-input" id="tag" name="tag" required>
+    <input type="hidden" id="question_id" name="question_id" value= '{{ question_id }}'>
+    <div class="wraper">
+    <button class="button" type="submit"><p>Add new tag</p></button>
+</div>
+</form>
+<div >
+<button class="button"><a href="/question/{{ question_id }}/new-tag">Back</a></button></div>
+</body>
+{% endblock %}

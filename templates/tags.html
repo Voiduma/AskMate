@@ -1,0 +1,11 @@
+{% extends 'home.html' %}
+{% block title %}<title>Tags</title>{% endblock %}
+{% block content %}
+<body>
+    <ul class="tags">
+        {% for tag in tags %}
+            <li class="tag-listed"><p class="tag">#{{tag['name']}}: {{tag['total']}} questions asked</p></li>
+    {% endfor %}
+    </ul>
+</body>
+{% endblock %}

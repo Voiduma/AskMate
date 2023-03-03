@@ -1,0 +1,97 @@
+{% extends 'home.html' %}
+{% block title %}<title>Question</title>{% endblock %}
+{% block content %}
+<body>
+<h1 class="site-title">{{ question['title']}}</h1>
+<div class="text">{{ question['message']}}</div>
+{% if question['image']!='[null]' %}
+<img src="/static/images/questions/{{ question['image']}}" alt="">
+{% endif %}
+<div class="button-bar">
+{% for tag in tags %}
+    #{{tag['name']}} <button class="button"><a href="/question/{{tag['question_id']}}/tag/{{tag['tag_id']}}/delete">X</a></button> 
+{% endfor %}
+<button class="button"><a href="/question/{{ question['id'] }}/new-tag">Add Tag</button>
+{% if question['autor_id']==user_id %} 
+    <button class="button"><a href="/question/{{ question['id'] }}/edit">Edit</button>         
+    <button class="button"><a href="/question/{{ question['id'] }}/delete">Delete</a></button>
+{% endif %}
+</div>
+<h2 class="site-title">Answers</h2>
+<table class="questions">
+    <thead >
+        <th class="narrow">Id</th>
+        <th class="wider">Message</th>
+        <th class="narrow">Vote</th>
+        <th class="narrow">Voting</th>
+    </thead> 
+    <tbody >
+        {% for answer in answers %}
+        <tr>
+            <td class="narrow cell">{{loop.index}}</td>
+            <td class="wider cell message">{{answer['message']}}
+                {% if answer['image']!='[null]' %}
+                <img width="50" height ='50' src="/static/images/answers/{{ answer['image']}}" alt="">
+                {% endif %}
+            </td>
+            <td class="narrow cell">{{answer['vote_number']}}</td>
+            <td class="narrow cell"> <div class="vote-wrap"><button><a class="vote" href="/answer/{{ answer['id'] }}/vote-up">+</a></button><button ><a class="vote" href="/answer/{{ answer['id'] }}/vote-down">-</a></button></div></td>
+        </tr>
+        <tr>
+            {% if answer['autor_id']==user_id %}
+                <td class="button"><a href="/answer/{{ answer['id'] }}/edit">Edit</a>
+                <td class="button"><a href="/answer/{{ answer['id'] }}/delete">Delete</a></td>
+            {% endif %}
+            <td class="button"><button ><a href='/answer/{{ answer["id"] }}/new-comment'>New Comment</a></button></td>
+            {% if answer['is_accepted'] is in [none, false]  %}
+                <td><button><a href='/answer/{{ answer["id"] }}/accept'>Accept Answer</a></button></td>
+            {% elif answer['is_accepted'] is in [true] %}
+                <td><button><a href='/answer/{{ answer["id"] }}/refuse'>Refuse Answer</a></button></td>
+            {% endif %}
+        </tr>
+            {% for comment in comments %}
+            {% if comment['answer_id'] == answer['id'] %}   
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{comment['message']}}</td>
+                <td>Edited:{{comment['edited_count']}} times</td>
+                {% if comment['autor_id']==user_id %}
+                    <td><a href="/comment/{{ comment['id'] }}/edit">Edit</a>
+                    <td><a href="/comment/{{ comment['id'] }}/delete">Delete</a></td>
+                {% endif %}
+                <td>{{comment['submission_time']}}</td>
+            </tr>
+            {% endif %}    
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>   
+</table>
+<button class="button"><a href='/question/{{ question["id"] }}/new-answer'>New Answer</a></button>
+<h3 class="site-title">Comments</h3>
+<table class="questions">
+    <thead>
+        <th class="com-table-head">Id</th>
+        <th class="com-table-head">Message</th>
+        <th class="com-table-head">Submission Time</th>
+    </thead> 
+    <tbody>
+        {% for comment in comments %}
+        {% if comment['question_id'] == question['id'] %}
+        {% if comment['answer_id'] in ("NULL", "", None) %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{comment['message']}}</td>
+            <td>{{comment['submission_time']}}</td>
+            <td><a href="/comment/{{ comment['id'] }}/edit">Edit</a>
+            <td><a href="/comment/{{ comment['id'] }}/delete">Delete</a></td>
+        </tr>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </tbody>   
+</table>
+<button class="button"><a href='/question/{{ question["id"] }}/new-comment'>New Comment</a></button>
+<button class="button"><a href="/list">Back</a></button>
+</body>
+{% endblock %}

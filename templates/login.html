@@ -1,0 +1,17 @@
+{% extends 'home.html' %}
+{% block title %}<title>Login</title>{% endblock %}
+{% block content %}
+<body>
+    <p class="site-title">Login to Your account</p>
+   <form class="add-form" method=post enctype=multipart/form-data>
+    <label class="form-label" for="username">Username:</label>
+    <input class="list-input" type="text" name="username" >
+    <label class="form-label" for="password">Password</label>
+    <input class="list-input" type="password" name="password">
+    <div class="wraper">
+    <button class="button" type="submit"><p>Login</p></button>
+    </div> 
+   </form>
+   <div><button class="button" ><a href="/">Back</a></button></div>
+</body>
+{% endblock %}

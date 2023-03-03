@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+{% block title %}<title>Add question</title>{% endblock %}
+{% block content %}
+<body >
+    <p class="site-title">Add a Question</p>
+<form class="add-form" method=post enctype=multipart/form-data>
+    <label class="form-label" class="form-title" for="title" >Title:</label>
+    <input class="title-input" id="title" type="text" name="title" minlength="5" required value="{{ question['title'] if question is defined }}"/>
+    <label class="form-label" for="message">Message:</label>
+    <textarea class="text-input" id="message" name="message" required>{{ question['message'] if question is defined }}</textarea>
+    <div class="wraper">
+    <label class="button" for="file">Wybierz plik <input type=file name=file id="file"></label>
+    <input  type="hidden" id="vote_number" name="vote_number" value= 0>
+    <input  type="hidden" id="view_number" name="view_number" value= 0>
+    <button class="button"type="submit"> <p>Ask new Question</p></button>
+    </div>
+</form>
+<div><button class="button"><a href="/list">Back</a></button></div>
+</body>
+{% endblock %}

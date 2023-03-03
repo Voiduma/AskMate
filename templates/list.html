@@ -1,0 +1,31 @@
+{% extends 'home.html' %}
+{% block title %}<title>Asked questions</title>{% endblock %}
+{% block content %}
+    <body>
+        <p class="site-title">All Questions <br> Choose question or </p>
+        <button class="button"><a href="/add-question">Ask New Question</a></button>
+        <table class="questions">
+            <thead>
+                <tr>
+                    <th class="narrow">Id<a class="sort" href='/list?order_by=id&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=id&order_direction=desc'>↥</a></th>
+                    <th class="wide">Question Title<a class="sort" href='/list?order_by=title&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=title&order_direction=desc'>↥</a></th>
+                    <th class="wide">Question<a class="sort" href='/list?order_by=message&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=message&order_direction=desc'>↥</a></th>
+                    <th class="narrow">Votes<a class="sort" href='/list?order_by=vote_number&order_direction=asc'>↧</a><a class="sort" href='/list?order_by=vote_number&order_direction=desc'>↥</a></th>
+                    <th class="narrow">Voting</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %}
+                    <tr>
+                        <td class="narrow cell"><p>{{loop.index}}</p></td>
+                        <td class="wide cell"><a class="title" href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+                        <td class="wide cell message">{{ question['message'] }}</td>
+                        <td class="narrow cell" ><p>{{ question['vote_number'] }}</p></td>
+                        <td class="narrow cell"><p class="vote-wrap"><button><a class="vote" href="/question/{{ question['id'] }}/vote-up">+</a></button><button><a class="vote" href="/question/{{ question['id'] }}/vote-down">-</a></button></p></td>
+                    </tr>
+                {% endfor %}<br>
+            </tbody>
+        </table>
+        <button class="button"><a href="/">Home</a></button>
+    </body>
+{% endblock %}
